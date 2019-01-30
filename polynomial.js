@@ -3,7 +3,7 @@ let P = (a, x) => {
 };
 
 function print_polygon(pol, html = false) {
-	output = '';
+	let output = '';
 	for (const p of pol) {
 		if (p.constant < 0)
 			output += " - " + (html ? p.neg().getHTML() : p.neg().get());
@@ -15,7 +15,7 @@ function print_polygon(pol, html = false) {
 
 function clone_poly_array(arr)
 {
-	output = [];
+	let output = [];
 	for (const p of arr) {
 		output.push(p.clone())
 	}
@@ -38,7 +38,7 @@ function divide(a, b) {
 	let reminder = [];
 	let divider = clone_poly_array(b);
 	do {
-		if (a[0].compare_poly(b[0]) >= 0) {
+		if (a.length > 0 && a[0].compare_poly(b[0]) >= 0){
 			reminder = [];
 			result.push(a[0].div_poly(b[0]));
 
@@ -70,7 +70,8 @@ function divide(a, b) {
 
 			a = clone_poly_array(reminder).reverse();
 			divider = clone_poly_array(b);
-		} else
+		}
+		else
 			break;
 	} while (true);
 	reminder.reverse();
@@ -83,13 +84,27 @@ let output = $("#outputCalc");
 
 let fn_input_keyup = function (e) {
 
-	let a = parseInput(input1.val());
-	let a = parseInput(input2.val());
+	let a = null;
+	let b = null;
+	try {
+		a = parse_input(input1.val());
+		b = parse_input(input2.val());
+		if (!a || !b)
+		{
+			output.html("");
+		}
+	} catch (error) {
+		output.html("Syntax Error");
+		console.log(error);
+	}
 
-	let r = divide(a, b);
-	output.html(print_polygon(r.result, true) + " | " + print_polygon(r.reminder, true));
-	console.table({Result: print_polygon(r.result), Reminder: print_polygon(r.reminder)});
+	if (a && b)	{
+		let r = divide(a, b);
+		output.html(print_polygon(r.result, true) + (r.reminder.length > 0 ? " | Reminder: " + print_polygon(r.reminder, true) : ""));
+		console.table({Result: print_polygon(r.result), Reminder: print_polygon(r.reminder)});
+	}
 }
 
 $("#inputCalcOp1").keyup(fn_input_keyup);
 $("#inputCalcOp2").keyup(fn_input_keyup);
+fn_input_keyup();
