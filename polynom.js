@@ -23,7 +23,7 @@ class Polynom
 
 	add(constant)
 	{
-		return new Polynom(this.constant - constant, this.exponent);
+		return new Polynom(this.constant + constant, this.exponent);
 	}
 
 	sub(constant)
