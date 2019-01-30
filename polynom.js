@@ -11,14 +11,14 @@ class Polynom
 	{
 		if (this.exponent == 0)
 			return this.constant;
-		return this.constant + "x^" + this.exponent;
+		return (this.constant == 1 ? "" : this.constant) + "x^" + this.exponent;
 	}
 
 	getHTML()
 	{
 		if (this.exponent == 0)
 			return this.constant;
-		return this.constant + "x<sup>" + this.exponent + "</sup>";
+		return (this.constant == 1 ? "" : this.constant)  + "x<sup>" + this.exponent + "</sup>";
 	}
 
 	add(constant)

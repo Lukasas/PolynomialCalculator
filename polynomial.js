@@ -53,12 +53,16 @@ function divide(a, b) {
 
 				if (didx == -1)
 				{
+					if (aidx == -1)
+						continue;
 					reminder.push(a[aidx])
 					continue;
 				}
 
 				if (aidx == -1)
 				{
+					if (didx == -1)
+						continue;
 					reminder.push(divider[didx].neg())
 					continue;
 				}
