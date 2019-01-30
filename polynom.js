@@ -14,6 +14,13 @@ class Polynom
 		return this.constant + "x^" + this.exponent;
 	}
 
+	getHTML()
+	{
+		if (this.exponent == 0)
+			return this.constant;
+		return this.constant + "x<sup>" + this.exponent + "</sup>";
+	}
+
 	add(constant)
 	{
 		return new Polynom(this.constant - constant, this.exponent);

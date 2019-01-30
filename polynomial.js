@@ -2,13 +2,13 @@ let P = (a, x) => {
 	return new Polynom(a, x)
 };
 
-function print_polygon(pol) {
+function print_polygon(pol, html = false) {
 	output = '';
 	for (const p of pol) {
 		if (p.constant < 0)
-			output += " - " + p.neg().get();
+			output += " - " + (html ? p.neg().getHTML() : p.neg().get());
 		else
-			output += " + " + p.get();
+			output += " + " + (html ? p.getHTML() : p.get());
 	}
 	return output.slice(1);
 }
@@ -81,5 +81,5 @@ let a = [P(4, 4), P(3, 3), P(2, 2), P(1, 1), P(1, 0)];
 let b = [P(2, 2), P(3, 1), P(1, 0)];
 let r = divide(a, b);
 $("#inputCalc").val(print_polygon(a) + " / " + print_polygon(b))
-$("#outputCalc").text(print_polygon(r.result) + " | " + print_polygon(r.reminder));
+$("#outputCalc").html(print_polygon(r.result, true) + " | " + print_polygon(r.reminder, true));
 console.table({Result: print_polygon(r.result), Reminder: print_polygon(r.reminder)});
