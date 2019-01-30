@@ -77,9 +77,19 @@ function divide(a, b) {
 	return {reminder, result};
 }
 
-let a = [P(4, 4), P(3, 3), P(2, 2), P(1, 1), P(1, 0)];
-let b = [P(2, 2), P(3, 1), P(1, 0)];
-let r = divide(a, b);
-$("#inputCalc").val(print_polygon(a) + " / " + print_polygon(b))
-$("#outputCalc").html(print_polygon(r.result, true) + " | " + print_polygon(r.reminder, true));
-console.table({Result: print_polygon(r.result), Reminder: print_polygon(r.reminder)});
+let input1 = $("#inputCalcOp1");
+let input2 = $("#inputCalcOp2");
+let output = $("#outputCalc");
+
+let fn_input_keyup = function (e) {
+
+	let a = parseInput(input1.val());
+	let a = parseInput(input2.val());
+
+	let r = divide(a, b);
+	output.html(print_polygon(r.result, true) + " | " + print_polygon(r.reminder, true));
+	console.table({Result: print_polygon(r.result), Reminder: print_polygon(r.reminder)});
+}
+
+$("#inputCalcOp1").keyup(fn_input_keyup);
+$("#inputCalcOp2").keyup(fn_input_keyup);
